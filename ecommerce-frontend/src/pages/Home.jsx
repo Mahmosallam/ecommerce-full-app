@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
+import API from '@/api';
+
 
 
 
@@ -38,7 +40,7 @@ export default function Home() {
   const [products, setProduct] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products`)
+      .get(`${API}/products`)
       .then((res) => {
         console.log("API response:", res.data.products); 
         setProduct(res.data.products);

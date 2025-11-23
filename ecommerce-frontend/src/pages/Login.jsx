@@ -3,6 +3,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../store/authSlice";
 import { useNavigate, Link } from "react-router-dom";
+import API from '@/api';
+
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,7 +22,7 @@ export default function Login() {
     e.preventDefault();
 
     const res = await axios.post(
-      "http://localhost:5000/api/users/login",
+      `${API}/users/login`,
       form,
       { validateStatus: () => true }
     );

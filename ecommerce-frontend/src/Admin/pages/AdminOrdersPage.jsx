@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { useSelector } from "react-redux";   
+import { useSelector } from "react-redux";
+import API from '@/api';
 
 export default function AdminOrdersPage() {
   const { user } = useSelector((state) => state.auth);
@@ -15,7 +16,7 @@ export default function AdminOrdersPage() {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/orders", {
+      const res = await axios.get(`${API}/orders`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setOrders(res.data.orders);
@@ -45,7 +46,7 @@ export default function AdminOrdersPage() {
     console.log("updated", updated)
 
     try {
-      await axios.put(`http://localhost:5000/api/orders/${selectedOrder._id}/status`,updated,{
+      await axios.put(`${API}/orders/${selectedOrder._id}/status`,updated,{
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -73,7 +74,7 @@ export default function AdminOrdersPage() {
     if (!isConfirmed) return; 
 
     try {
-      await axios.delete(`http://localhost:5000/api/orders/${id}`, {
+      await axios.delete(`${API}/orders/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

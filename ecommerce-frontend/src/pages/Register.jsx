@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/authSlice";
+import API from '@/api';
+
 
 
 
@@ -17,7 +19,7 @@ export default function Register() {
     e.preventDefault();
 
     const res = await axios.post(
-      "http://localhost:5000/api/users/register",
+      `${API}/users/register`,
       form,
       { validateStatus: () => true }
     );

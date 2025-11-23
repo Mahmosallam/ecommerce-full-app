@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { logout } from "../store/authSlice";
+import API from '@/api';
+
  
 export default function Navbar() {
   const { user } = useSelector((state) => state.auth);
@@ -29,7 +31,7 @@ const { cartItems } = useSelector((state) => state.cart);
    
     const loadCart = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/cart", {
+        const res = await axios.get(`${API}/cart`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

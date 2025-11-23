@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
+import API from '@/api';
+
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const navigate = useNavigate();
 
     const loadCart = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/cart", {
+        const res = await axios.get(`${API}/cart`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -40,7 +42,7 @@ const navigate = useNavigate();
   const handleClearCart = async () => {
     try {
       if (user?.token) {
-        await axios.delete("http://localhost:5000/api/cart", {
+        await axios.delete(`${API}/cart`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -58,7 +60,7 @@ const navigate = useNavigate();
     try {
       console.log("user?.token", user?.token);
       if (user?.token) {
-       const response = await axios.delete(`http://localhost:5000/api/cart/${productId}`, {
+       const response = await axios.delete(`${API}/cart/${productId}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -84,7 +86,7 @@ const handleCheckout = async () => {
     }));
 
     const res = await axios.post(
-      "http://localhost:5000/api/orders",
+      `${API}/orders`,
       { items: formattedItems },
       {
         headers: {
@@ -96,7 +98,7 @@ const handleCheckout = async () => {
     console.log("ORDER SUCCESS:", res.data);
 
     
-    await axios.delete("http://localhost:5000/api/cart", {
+    await axios.delete(`${API}/cart`, {
       headers: { Authorization: `Bearer ${user.token}` },
     });
 

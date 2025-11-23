@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import API from '@/api';
+
 
 export default function Orders() {
   const { user } = useSelector((state) => state.auth);
@@ -9,7 +11,7 @@ const [orders, setOrders] = useState([]);
 useEffect(() => {
   const loadOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/orders/my", {
+      const res = await axios.get(`${API}/orders/my`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

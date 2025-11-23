@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
+import API from '@/api';
+
 
 function useCartActions() {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const addItem = async (product, quantity = 1) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/cart",
+      `${API}/cart`,
       { productId: product._id, quantity },
       {
         headers: { authorization: `Bearer ${user.token}` },

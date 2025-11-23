@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
+import API from '@/api';
 
 export default function AdminProductsPage() {
   const { user } = useSelector((state) => state.auth);
@@ -16,7 +17,7 @@ export default function AdminProductsPage() {
       
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get(`${API}/products`);
       setProduct(res.data.products);
       setLoading(false);
     } catch (err) {
@@ -41,7 +42,7 @@ export default function AdminProductsPage() {
     if (!isConfirmed) return; 
 
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(`${API}/products/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -76,7 +77,7 @@ export default function AdminProductsPage() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/products/${selectedProduct._id}`,
+        `${API}/products/${selectedProduct._id}`,
         updated,
         {
           headers: {
@@ -115,7 +116,7 @@ export default function AdminProductsPage() {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/products", newProduct, {
+      await axios.post(`${API}/products`, newProduct, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

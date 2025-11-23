@@ -1,5 +1,5 @@
 node_modules/
-docker-compose.yml
 .env
 dist/
 .vscode/
+mongo-backup

@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cartSlice.js";
 import useCartActions from "../cart/useCartActions";
-const socket = io("http://localhost:5000", { transports: ["websocket"] });
+import API from '@/api';
+
+const socket = io(`${API}`, { transports: ["websocket"] });
+
 
 export default function Products() { 
   const dispatch = useDispatch();
@@ -15,7 +18,7 @@ export default function Products() {
   const { addItem } = useCartActions();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products")
+      .get(`${API}/products`)
       .then((res) => setProducts(res.data.products || res.data))
       .catch((err) => console.error("Error fetching products:", err));
 

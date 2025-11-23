@@ -3,6 +3,8 @@ import axios from "axios";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
+import API from '@/api';
+
 
 export default function AdminUsersPage() {
   const { user } = useSelector((state) => state.auth);
@@ -17,7 +19,7 @@ export default function AdminUsersPage() {
   // FETCH USERS
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/users", {
+      const res = await axios.get(`${API}/users`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       console.log("res.data", res.data);
@@ -42,7 +44,7 @@ export default function AdminUsersPage() {
     if (!ok) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`${API}/users/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
 
@@ -72,7 +74,7 @@ const handleUpdate = async (e) => {
 
   try {
     await axios.put(
-      `http://localhost:5000/api/users/${selectedUser._id}`,
+      `${API}/users/${selectedUser._id}`,
       updated,
       { headers: { Authorization: `Bearer ${user.token}` } }
     );
@@ -102,7 +104,7 @@ const handleUpdate = async (e) => {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/users/register", newUser, {
+      await axios.post(`${API}/users/register`, newUser, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
 

@@ -1,13 +1,10 @@
-FROM node:18
-
+FROM node:18-alpine
 WORKDIR /app
-
-COPY package*.json .
-
-RUN npm install
-
+COPY package*.json ./
+RUN npm ci --only=production
 COPY . .
-
+RUN chown -R node:node /app
+USER node
 EXPOSE 5000
+CMD ["npm", "start"]
 
-CMD ["npm", "run", "dev"] 
