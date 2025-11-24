@@ -20,5 +20,5 @@ RUN addgroup -g 1001 -S front && \
     chown -R front:front /var/run/nginx.pid
 
 USER front
-EXPOSE 80
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]

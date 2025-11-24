@@ -40,7 +40,7 @@ services:
     build: ./ecommerce-frontend/.
     container_name: frontend
     ports:
-      - "3300:80"
+      - "3300:8080"
     environment:
       - BACKEND_HOST=${BACKEND_HOST}
       - BACKEND_PORT=${BACKEND_PORT}
