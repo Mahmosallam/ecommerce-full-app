@@ -26,14 +26,22 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: "p/ci"
-          path: ./ecommerce-frontend
-          generateSarif: "true"
+          args: ./ecommerce-frontend
+    
 
       - name: Trivy Dependency Scan
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: fs
           scan-ref: ./ecommerce-frontend
+          format: table
+          output: trivy-fs-frontend.txt
+          
+      - name: Add Trivy FS Report to Summary
+        run: |
+          echo "## Trivy FS Scan - Frontend" >> $GITHUB_STEP_SUMMARY
+          cat trivy-fs-frontend.txt >> $GITHUB_STEP_SUMMARY
+
 
       - name: Build Docker Image
         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/front:latest ./ecommerce-frontend/.
@@ -43,6 +51,13 @@ jobs:
         with:
           scan-type: image
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/front:latest
+          format: table
+          output: trivy-image-frontend.txt
+
+      - name: Add Trivy Image Report to Summary
+        run: |
+          echo "## Trivy Image Scan - Frontend" >> $GITHUB_STEP_SUMMARY
+          cat trivy-image-frontend.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3.6.0
@@ -77,14 +92,21 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: "p/ci"
-          path: ./ecommerce-backend
-          generateSarif: "true"
+          args: ./ecommerce-backend
+          
 
       - name: Trivy Dependency Scan
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: fs
           scan-ref: ./ecommerce-backend
+          format: table
+          output: trivy-fs-backend.txt
+
+      - name: Add Trivy FS Report to Summary
+        run: |
+          echo "## Trivy FS Scan - Backend" >> $GITHUB_STEP_SUMMARY
+          cat trivy-fs-backend.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Build Docker Image
         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/back:latest ./ecommerce-backend/.
@@ -94,6 +116,14 @@ jobs:
         with:
           scan-type: image
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/back:latest
+          format: table
+          output: trivy-image-backend.txt
+
+      - name: Add Trivy Image Report to Summary
+        run: |
+          echo "## Trivy Image Scan - Backend" >> $GITHUB_STEP_SUMMARY
+          cat trivy-image-backend.txt >> $GITHUB_STEP_SUMMARY
+          
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3.6.0
