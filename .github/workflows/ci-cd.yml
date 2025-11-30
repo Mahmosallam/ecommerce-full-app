@@ -26,7 +26,7 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: "p/ci"
-          args: ./ecommerce-frontend
+          entryPoint: ./ecommerce-frontend
     
 
       - name: Trivy Dependency Scan
@@ -92,7 +92,7 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: "p/ci"
-          args: ./ecommerce-backend
+          entryPoint: ./ecommerce-backend
           
 
       - name: Trivy Dependency Scan
