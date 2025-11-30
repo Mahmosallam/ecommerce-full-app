@@ -22,11 +22,18 @@ jobs:
         working-directory: ./ecommerce-frontend
         run: npm install
 
-      - name: Run Semgrep Code Analysis
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: "p/ci"
-          entryPoint: ./ecommerce-frontend
+      - name: Install Semgrep CLI
+        run: pip install semgrep
+
+      - name: Run Semgrep
+        run: semgrep --config p/ci
+        working-directory: ./ecommerce-frontend
+
+      - name: Add Semgrep Report to Summary
+        run: |
+          echo "## Semgrep Report - Frontend" >> $GITHUB_STEP_SUMMARY
+          semgrep --config p/ci --json >> $GITHUB_STEP_SUMMARY
+
     
 
       - name: Trivy Dependency Scan
@@ -88,11 +95,17 @@ jobs:
         working-directory: ./ecommerce-backend
         run: npm install
 
-      - name: Run Semgrep Code Analysis
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: "p/ci"
-          entryPoint: ./ecommerce-backend
+      - name: Install Semgrep CLI
+        run: pip install semgrep
+
+      - name: Run Semgrep
+        run: semgrep --config p/ci
+        working-directory: ./ecommerce-backend
+
+      - name: Add Semgrep Report to Summary
+        run: |
+          echo "## Semgrep Report - Backend" >> $GITHUB_STEP_SUMMARY
+          semgrep --config p/ci --json >> $GITHUB_STEP_SUMMARY
           
 
       - name: Trivy Dependency Scan
