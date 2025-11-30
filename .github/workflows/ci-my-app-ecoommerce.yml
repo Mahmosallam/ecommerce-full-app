@@ -1,4 +1,4 @@
-name: ci-the-app
+name: ci-the-app-app-ecomme
 on:
   workflow_dispatch:
 
