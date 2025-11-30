@@ -36,7 +36,7 @@ jobs:
           scan-ref: ./ecommerce-frontend
 
       - name: Build Docker Image
-        run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/frontend:latest ./ecommerce-frontend/.
+        run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/front:latest ./ecommerce-frontend/.
 
       - name: Trivy Docker Image Scan
         uses: aquasecurity/trivy-action@0.33.1
