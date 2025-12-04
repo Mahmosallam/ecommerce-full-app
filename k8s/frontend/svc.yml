@@ -4,6 +4,7 @@ metadata:
   name: front-svc
   namespace: frontend
 spec:
+  type: NodePort
   selector:
     app: frontend
   ports:
