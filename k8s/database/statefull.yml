@@ -72,4 +72,4 @@ spec:
           requests:
             storage: 5Gi
      #  storageClassName: local-path
-        storageClassName: gp2
+        storageClassName: gp2-retain
