@@ -3,10 +3,15 @@ kind: Ingress
 metadata:
   name: front-ingress
   namespace: frontend
+  # annotations:
+  #   nginx.ingress.kubernetes.io/rewrite-target: /
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: alb                    
+    alb.ingress.kubernetes.io/scheme: internet-facing 
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
+  # ingressClassName: nginx
   # tls:
   #   - hosts: []
   #     secretName: ingress-tls
